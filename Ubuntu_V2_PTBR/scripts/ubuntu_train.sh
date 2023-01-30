@@ -15,7 +15,7 @@ max_utter_num=10
 max_response_len=50
 max_word_length=18
 num_layer=3
-embedding_dim=300
+embedding_dim=400
 rnn_size=200
 
 batch_size=96

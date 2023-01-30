@@ -15,13 +15,13 @@ max_utter_num=10
 max_response_len=50
 max_word_length=18
 num_layer=3
-embedding_dim=300
+embedding_dim=100
 rnn_size=200
 
 batch_size=96
 lambda=0
 dropout_keep_prob=0.8
-num_epochs=10
+num_epochs=5
 evaluate_every=1000
 
 PKG_DIR=${parentdir}
