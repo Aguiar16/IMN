@@ -10,6 +10,11 @@ vocab_file=$DATA_DIR/vocab.txt
 char_vocab_file=$DATA_DIR/char_vocab.txt
 embedded_vector_file=$DATA_DIR/glove_42B_300d_vec_plus_word2vec_100.txt
 
+latest_run=`ls -dt runs/* |head -n 1`
+latest_checkpoint=${latest_run}/checkpoints
+# latest_checkpoint=runs/1552658564/checkpoints
+echo $latest_checkpoint
+
 max_utter_len=50
 max_utter_num=10
 max_response_len=50
@@ -26,7 +31,7 @@ evaluate_every=500
 
 PKG_DIR=${parentdir}
 
-PYTHONPATH=${PKG_DIR}:$PYTHONPATH CUDA_VISIBLE_DEVICES=3 python -u ${PKG_DIR}/model/train.py \
+PYTHONPATH=${PKG_DIR}:$PYTHONPATH CUDA_VISIBLE_DEVICES=3 python -u ${PKG_DIR}/model/train_load.py \
                 --train_file $train_file \
                 --valid_file $valid_file \
                 --response_file $response_file \
@@ -44,4 +49,5 @@ PYTHONPATH=${PKG_DIR}:$PYTHONPATH CUDA_VISIBLE_DEVICES=3 python -u ${PKG_DIR}/mo
                 --l2_reg_lambda $lambda \
                 --dropout_keep_prob $dropout_keep_prob \
                 --num_epochs $num_epochs \
+                --checkpoint_dir $latest_checkpoint \
                 --evaluate_every $evaluate_every > log_train_IMN_UbuntuV2.txt 2>&1 &
