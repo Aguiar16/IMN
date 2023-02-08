@@ -38,6 +38,9 @@ tf.flags.DEFINE_integer("evaluate_every", 1000, "evaluate model on valid dataset
 tf.flags.DEFINE_boolean("allow_soft_placement", True, "Allow device soft device placement")
 tf.flags.DEFINE_boolean("log_device_placement", False, "Log placement of ops on devices")
 
+# Finetuning dir
+tf.flags.DEFINE_string("checkpoint_dir", "", "Checkpoint directory from training run")
+
 FLAGS = tf.flags.FLAGS
 FLAGS._parse_flags()
 print("\nParameters:")
