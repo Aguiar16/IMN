@@ -103,6 +103,10 @@ with graph.as_default():
                 r_char_len: x_r_char_len
             }
             predicted_prob = sess.run(prob, feed_dict)
+
+            with open("predicted_prob.txt",'w') as f:
+                f.write('%s\n' %str(predicted_prob))
+
             num_test += len(predicted_prob)
             print('num_test_sample={}'.format(num_test))
             for i, prob_score in enumerate(predicted_prob):
