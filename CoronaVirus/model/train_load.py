@@ -101,10 +101,10 @@ with tf.Graph().as_default():
         grad_summaries_merged = tf.merge_summary(grad_summaries)
         """
 
-        # Output directory for models and summaries
-        timestamp = str(int(time.time()))
-        out_dir = os.path.abspath(os.path.join(os.path.curdir, "runs", timestamp))
-        print("Writing to {}\n".format(out_dir))
+       # Output directory for models and summaries
+        # timestamp = str(int(time.time()))
+        # out_dir = os.path.abspath(os.path.join(os.path.curdir, "runs", timestamp))
+        # print("Writing to {}\n".format(out_dir))
 
         # Summaries for loss and accuracy
         """
@@ -123,17 +123,17 @@ with tf.Graph().as_default():
         """
 
         # Checkpoint directory. Tensorflow assumes this directory already exists so we need to create it
-        checkpoint_dir = os.path.abspath(os.path.join(out_dir, "checkpoints"))
-        checkpoint_prefix = os.path.join(checkpoint_dir, "model")
-        if not os.path.exists(checkpoint_dir):
-            os.makedirs(checkpoint_dir)
-            saver = tf.train.Saver(tf.global_variables())
-        else :
-            checkpoint_file = tf.train.latest_checkpoint(FLAGS.checkpoint_dir)
-            print(checkpoint_file)
-            saver = tf.train.import_meta_graph("{}.meta".format(checkpoint_file))
-            saver.restore(sess, checkpoint_file)
-
+        # checkpoint_dir = os.path.abspath(os.path.join(out_dir, "checkpoints"))
+        # checkpoint_prefix = os.path.join(checkpoint_dir, "model")
+        # if not os.path.exists(checkpoint_dir):
+        #     os.makedirs(checkpoint_dir)
+            
+        checkpoint_file = tf.train.latest_checkpoint(FLAGS.checkpoint_dir)
+        print(checkpoint_file)
+        saver = tf.train.import_meta_graph("{}.meta".format(checkpoint_file))
+        saver.restore(sess, checkpoint_file)
+        
+        # saver = tf.train.Saver(tf.global_variables())
         # Initialize all variables
         sess.run(tf.global_variables_initializer())
 
