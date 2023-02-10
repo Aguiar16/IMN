@@ -83,6 +83,7 @@ with tf.Graph().as_default():
             maxWordLength=FLAGS.max_word_length,
             charVocab=charVocab,
             l2_reg_lambda=FLAGS.l2_reg_lambda)
+        
         # Define Training procedure
         global_step = tf.Variable(0, name="global_step", trainable=False)
         starter_learning_rate = 0.001
@@ -130,12 +131,18 @@ with tf.Graph().as_default():
         # checkpoint_prefix = os.path.join(checkpoint_dir, "model")
         # if not os.path.exists(checkpoint_dir):
         #     os.makedirs(checkpoint_dir)
-            
+        
         checkpoint_file = tf.train.latest_checkpoint(FLAGS.checkpoint_dir)
+        checkpoint_prefix = os.path.join(FLAGS.checkpoint_dir, "model")
+
+        _,last_step = os.path.split(checkpoint_file)
+        last_step = last_step.split('-')[1]
+        last_step = int(last_step)
+
         print(checkpoint_file)
         saver = tf.train.import_meta_graph("{}.meta".format(checkpoint_file))
         saver.restore(sess, checkpoint_file)
-        
+
         # saver = tf.train.Saver(tf.global_variables())
         # Initialize all variables
         sess.run(tf.global_variables_initializer())
@@ -220,7 +227,7 @@ with tf.Graph().as_default():
         for batch in batches:
             x_utterances, x_response, x_utterances_len, x_response_len, x_utters_num, x_target, x_target_weight, id_pairs, x_u_char, x_u_char_len, x_r_char, x_r_char_len = batch
             train_step(x_utterances, x_response, x_utterances_len, x_response_len, x_utters_num, x_target, x_target_weight, id_pairs, x_u_char, x_u_char_len, x_r_char, x_r_char_len)
-            current_step = tf.train.global_step(sess, global_step)
+            current_step = int(tf.train.global_step(sess, global_step)) + last_step
             if current_step % FLAGS.evaluate_every == 0:
                 print("\nEvaluation:")
                 valid_mrr = dev_step()
