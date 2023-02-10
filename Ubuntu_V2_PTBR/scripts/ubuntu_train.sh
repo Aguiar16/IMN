@@ -1,7 +1,7 @@
 cur_dir=`pwd`
 parentdir="$(dirname $cur_dir)"
 
-DATA_DIR=${parentdir}/data/Ubuntu_Corpus_V2
+DATA_DIR=${parentdir}/data/Ubuntu_Corpus_V2_PTBR
 
 train_file=$DATA_DIR/train.txt
 valid_file=$DATA_DIR/valid.txt

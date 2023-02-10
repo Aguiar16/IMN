@@ -1,7 +1,7 @@
 cur_dir=`pwd`
 parentdir="$(dirname $cur_dir)"
 
-DATA_DIR=${parentdir}/data/Ubuntu_Corpus_V2
+DATA_DIR=${parentdir}/data/Corona
 
 latest_run=`ls -dt runs/* |head -n 1`
 latest_checkpoint=${latest_run}/checkpoints
